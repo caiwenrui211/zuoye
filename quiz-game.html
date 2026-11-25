@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한중 한국어 기초 상식 퀴즈 | 韩中韩语基础常识问答</title>
+  <style>
+    :root {
+      --bg-gradient-start: #f5f7ff;
+      --bg-gradient-end: #eef4fb;
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft: #eff6ff;
+      --accent-border: #bfdbfe;
+      --correct: #15803d;
+      --correct-bg: #f0fdf4;
+      --correct-border: #86efac;
+      --wrong: #b91c1c;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #fca5a5;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --shadow-btn: 0 6px 16px rgba(37, 99, 235, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(145deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      line-height: 1.55;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 32px;
+      transition: transform 0.2s ease;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Header badge & bilingual pairs */
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .title-ko {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .title-zh {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    .intro-box {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: grid;
+      gap: 8px;
+    }
+
+    .intro-box p {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+    }
+
+    .intro-box .zh {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 22px 0 26px;
+    }
+
+    .meta-item {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .meta-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 15px 22px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.16s ease, transform 0.12s ease, box-shadow 0.16s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: var(--shadow-btn);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    /* Quiz top status bar */
+    .quiz-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .score-pill {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      border-radius: 999px;
+      transition: width 0.28s ease;
+    }
+
+    .category-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 4px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .question-box {
+      margin-bottom: 20px;
+    }
+
+    .question-ko {
+      font-size: 1.32rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+
+    .question-zh {
+      font-size: 1.04rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .options-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-key {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .option-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 12px;
+      flex: 1;
+    }
+
+    .option-ko {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .option-zh {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .option-btn.is-correct {
+      background: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .option-btn.is-correct .option-key {
+      background: var(--correct);
+      border-color: var(--correct);
+      color: #ffffff;
+    }
+
+    .option-btn.is-wrong {
+      background: var(--wrong-bg);
+      border-color: var(--wrong-border);
+    }
+
+    .option-btn.is-wrong .option-key {
+      background: var(--wrong);
+      border-color: var(--wrong);
+      color: #ffffff;
+    }
+
+    /* Feedback panel */
+    .feedback-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .feedback-box.correct {
+      background: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .feedback-box.wrong {
+      background: var(--wrong-bg);
+      border-color: var(--wrong-border);
+    }
+
+    .feedback-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feedback-box.correct .feedback-title {
+      color: var(--correct);
+    }
+
+    .feedback-box.wrong .feedback-title {
+      color: var(--wrong);
+    }
+
+    .feedback-explain-ko {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .feedback-explain-zh {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .vocab-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(100, 116, 139, 0.3);
+    }
+
+    .vocab-chip {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-primary);
+    }
+
+    .next-wrap {
+      margin-top: 16px;
+    }
+
+    /* Result screen */
+    .result-hero {
+      text-align: center;
+      padding: 24px 18px;
+      background: linear-gradient(145deg, #eff6ff 0%, #f8fafc 100%);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      margin: 18px 0 22px;
+    }
+
+    .result-score-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .result-score-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .result-comment-ko {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 10px;
+    }
+
+    .result-comment-zh {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .review-heading {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .review-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+
+    .review-q {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .review-ans {
+      color: var(--text-muted);
+      font-size: 0.83rem;
+      margin-top: 2px;
+    }
+
+    .review-badge {
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+
+    .review-badge.ok {
+      background: var(--correct-bg);
+      color: var(--correct);
+      border: 1px solid var(--correct-border);
+    }
+
+    .review-badge.no {
+      background: var(--wrong-bg);
+      color: var(--wrong);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px 10px;
+      }
+
+      .card {
+        padding: 22px 18px;
+        border-radius: 16px;
+      }
+
+      .title-ko {
+        font-size: 1.45rem;
+      }
+
+      .title-zh {
+        font-size: 1.05rem;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        padding: 12px 14px;
+      }
+
+      .question-ko {
+        font-size: 1.15rem;
+      }
+
+      .question-zh {
+        font-size: 0.96rem;
+      }
+
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <!-- Start Screen -->
+    <section id="start-screen" class="card" aria-labelledby="start-title">
+      <div class="brand-pill">한중 이중언어 학습 · 韩中双语学习</div>
+      <h1 id="start-title" class="title-ko">한국어 기초 상식 퀴즈 게임</h1>
+      <p class="title-zh">韩语基础常识趣味问答游戏</p>
+
+      <div class="intro-box">
+        <p>
+          한글과 한국 문화, 생활 어휘까지 기초 상식을 재미있게 복습할 수 있는 퀴즈입니다.
+          모든 문제와 보기, 해설이 한국어와 중국어로 함께 제공됩니다.
+        </p>
+        <p class="zh">
+          这是一个帮助你以趣味方式复习韩文、韩国文化与日常词汇的基础常识问答。
+          所有题目、选项与解析均采用韩中双语对照，方便同步学习词汇。
+        </p>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div>
+            <div class="meta-label">문항 수 · 题目数量</div>
+            <div class="meta-value">총 6문항 · 共 6 题</div>
+          </div>
+          <div class="meta-sub">4지선다 · 四选一</div>
+        </div>
+        <div class="meta-item">
+          <div>
+            <div class="meta-label">난이도 · 难度说明</div>
+            <div class="meta-value">입문 ~ 초급</div>
+          </div>
+          <div class="meta-sub">入门至初级</div>
+        </div>
+        <div class="meta-item">
+          <div>
+            <div class="meta-label">학습 방식 · 答题方式</div>
+            <div class="meta-value">즉시 피드백</div>
+          </div>
+          <div class="meta-sub">即时判题与双语解析</div>
+        </div>
+      </div>
+
+      <button id="start-btn" type="button" class="btn btn-primary">
+        <span>퀴즈 시작하기</span>
+        <span>/</span>
+        <span>开始答题</span>
+      </button>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section id="quiz-screen" class="card hidden" aria-live="polite">
+      <div class="quiz-topbar">
+        <div id="progress-text" class="status-pill">문제 1 / 6 · 第 1 / 6 题</div>
+        <div id="score-text" class="status-pill score-pill">현재 점수: 0점 · 当前得分: 0 分</div>
+      </div>
+
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="1" id="progress-bar-wrap">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+
+      <div id="question-category" class="category-tag"></div>
+
+      <div class="question-box">
+        <h2 id="question-ko" class="question-ko"></h2>
+        <p id="question-zh" class="question-zh"></p>
+      </div>
+
+      <div id="options-list" class="options-list"></div>
+
+      <div id="feedback-box" class="feedback-box hidden">
+        <div id="feedback-title" class="feedback-title"></div>
+        <p id="feedback-explain-ko" class="feedback-explain-ko"></p>
+        <p id="feedback-explain-zh" class="feedback-explain-zh"></p>
+        <div id="vocab-row" class="vocab-row"></div>
+      </div>
+
+      <div id="next-wrap" class="next-wrap hidden">
+        <button id="next-btn" type="button" class="btn btn-primary"></button>
+      </div>
+    </section>
+
+    <!-- Result Screen -->
+    <section id="result-screen" class="card hidden" aria-labelledby="result-title">
+      <div class="brand-pill">퀴즈 완료 · 答题完成</div>
+      <h2 id="result-title" class="title-ko">최종 학습 결과</h2>
+      <p class="title-zh">最终学习成绩</p>
+
+      <div class="result-hero">
+        <div class="result-score-label">최종 점수 · 最终得分</div>
+        <div id="result-score" class="result-score-value">0 / 6 (0점)</div>
+        <p id="result-comment-ko" class="result-comment-ko"></p>
+        <p id="result-comment-zh" class="result-comment-zh"></p>
+      </div>
+
+      <div class="review-heading">문항별 정오답 요약 · 各题正误回顾</div>
+      <div id="review-list" class="review-list"></div>
+
+      <div class="result-actions">
+        <button id="restart-btn" type="button" class="btn btn-primary">
+          다시 시작 · 重新开始
+        </button>
+        <button id="home-btn" type="button" class="btn btn-secondary">
+          시작 화면 · 返回首页
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Bilingual Korean-Chinese quiz dataset (6 beginner-friendly general knowledge questions)
+    const QUESTIONS = [
+      {
+        categoryKo: "한글 상식",
+        categoryZh: "韩文常识",
+        questionKo: "한글(훈민정음)을 창제한 조선의 왕은 누구일까요?",
+        questionZh: "创制韩文（训民正音）的朝鲜国王是谁？",
+        options: [
+          { ko: "세종대왕", zh: "世宗大王" },
+          { ko: "이순신", zh: "李舜臣" },
+          { ko: "태조 이성계", zh: "太祖李成桂" },
+          { ko: "정조", zh: "正祖" }
+        ],
+        answerIndex: 0,
+        explainKo: "1443년 세종대왕이 백성들이 쉽게 글을 배울 수 있도록 '훈민정음(한글)'을 창제하고 1446년에 반포했습니다.",
+        explainZh: "1443年，世宗大王为了让百姓能够轻松学习文字而创制了“训民正音（韩文）”，并于1446年正式颁布。",
+        vocab: ["한글 · 韩文", "훈민정음 · 训民正音", "창제 · 创制"]
+      },
+      {
+        categoryKo: "생활 회화",
+        categoryZh: "日常会话",
+        questionKo: "식사 전에 감사하는 마음으로 하는 한국어 인사는 무엇인가요?",
+        questionZh: "用餐前怀着感谢的心情说的韩语问候语是什么？",
+        options: [
+          { ko: "잘 자요", zh: "晚安" },
+          { ko: "잘 먹겠습니다", zh: "我开动了（感谢款待）" },
+          { ko: "다녀왔습니다", zh: "我回来了" },
+          { ko: "처음 뵙겠습니다", zh: "初次见面" }
+        ],
+        answerIndex: 1,
+        explainKo: "음식을 준비해 준 사람에게 감사하며 식사 전에 '잘 먹겠습니다'라고 말하고, 식사 후에는 '잘 먹었습니다'라고 인사합니다.",
+        explainZh: "向准备食物的人表达感谢时，饭前会说“잘 먹겠습니다（我开动了）”，饭后则会说“잘 먹었습니다（我吃好了）”。",
+        vocab: ["식사 · 用餐", "인사 · 问候", "감사 · 感谢"]
+      },
+      {
+        categoryKo: "기초 숫자",
+        categoryZh: "基础数字",
+        questionKo: "한국어 고유어 숫자 '하나, 둘, 셋, 넷, ___'에서 빈칸에 들어갈 말은?",
+        questionZh: "韩语固有数词“하나(1), 둘(2), 셋(3), 넷(4), ___”中，空格处应填什么？",
+        options: [
+          { ko: "다섯", zh: "五 (5)" },
+          { ko: "여섯", zh: "六 (6)" },
+          { ko: "일곱", zh: "七 (7)" },
+          { ko: "여덟", zh: "八 (8)" }
+        ],
+        answerIndex: 0,
+        explainKo: "한국어 고유어 숫자는 '하나(1), 둘(2), 셋(3), 넷(4), 다섯(5), 여섯(6)' 순서이며, 시각(시)이나 개수를 셀 때 자주 사용합니다.",
+        explainZh: "韩语固有数词按“하나(1), 둘(2), 셋(3), 넷(4), 다섯(5), 여섯(6)”的顺序排列，常用于表达几点钟或物品数量。",
+        vocab: ["고유어 숫자 · 固有数词", "다섯 · 五", "개수 · 个数"]
+      },
+      {
+        categoryKo: "문화 상식",
+        categoryZh: "文化常识",
+        questionKo: "설날이나 추석 같은 명절에 입는 한국의 전통 의상은 무엇인가요?",
+        questionZh: "春节、中秋等传统节日时穿着的韩国传统服装是什么？",
+        options: [
+          { ko: "김치", zh: "泡菜" },
+          { ko: "태권도", zh: "跆拳道" },
+          { ko: "한복", zh: "韩服" },
+          { ko: "비빔밥", zh: "拌饭" }
+        ],
+        answerIndex: 2,
+        explainKo: "'한복(韓服)'은 한국의 전통 의상입니다. '김치(泡菜)'와 '비빔밥(拌饭)'은 대표 음식이고, '태권도(跆拳道)'는 전통 무예입니다.",
+        explainZh: "“한복（韩服）”是韩国传统服装；“김치（泡菜）”和“비빔밥（拌饭）”是代表性美食，“태권도（跆拳道）”是传统武术。",
+        vocab: ["명절 · 传统节日", "전통 의상 · 传统服装", "한복 · 韩服"]
+      },
+      {
+        categoryKo: "생활 어휘",
+        categoryZh: "生活词汇",
+        questionKo: "지하철역이나 건물에서 '출구(出口)'의 반대말인 '들어가는 문'은 무엇인가요?",
+        questionZh: "在地铁站或建筑里，与“출구（出口）”相对的“入口”用韩语怎么说？",
+        options: [
+          { ko: "창구", zh: "窗口" },
+          { ko: "정류장", zh: "公交站" },
+          { ko: "계단", zh: "楼梯" },
+          { ko: "입구", zh: "入口" }
+        ],
+        answerIndex: 3,
+        explainKo: "'입구(入口)'는 들어가는 곳, '출구(出口)'는 나가는 곳을 뜻합니다. 한국 여행 시 안내 표지판에서 가장 자주 볼 수 있는 단어입니다.",
+        explainZh: "“입구（入口）”指进入的地方，“출구（出口）”指离开的地方，是在韩国出行时指示牌上最常见的词汇。",
+        vocab: ["입구 · 入口", "출구 · 出口", "지하철역 · 地铁站"]
+      },
+      {
+        categoryKo: "지리 상식",
+        categoryZh: "地理常识",
+        questionKo: "대한민국의 수도이자 한강이 흐르는 도시는 어디인가요?",
+        questionZh: "大韩民国的首都，且汉江穿城而过的城市是哪里？",
+        options: [
+          { ko: "서울", zh: "首尔" },
+          { ko: "부산", zh: "釜山" },
+          { ko: "제주", zh: "济州" },
+          { ko: "경주", zh: "庆州" }
+        ],
+        answerIndex: 0,
+        explainKo: "'서울(首尔)'은 대한민국의 수도입니다. '부산(釜山)'은 남쪽의 항구 도시, '제주(济州)'는 아름다운 섬, '경주(庆州)'는 천년 고도입니다.",
+        explainZh: "“서울（首尔）”是韩国首都；“부산（釜山）”是南部港口城市，“제주（济州）”是著名的风景岛屿，“경주（庆州）”是千年古都。",
+        vocab: ["수도 · 首都", "한강 · 汉江", "서울 · 首尔"]
+      }
+    ];
+
+    const OPTION_LETTERS = ["A", "B", "C", "D"];
+    const TOTAL_QUESTIONS = QUESTIONS.length;
+
+    // Application state
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    let history = [];
+
+    // DOM references
+    const startScreen = document.getElementById("start-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultScreen = document.getElementById("result-screen");
+
+    const startBtn = document.getElementById("start-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const homeBtn = document.getElementById("home-btn");
+
+    const progressText = document.getElementById("progress-text");
+    const scoreText = document.getElementById("score-text");
+    const progressBarWrap = document.getElementById("progress-bar-wrap");
+    const progressFill = document.getElementById("progress-fill");
+    const questionCategory = document.getElementById("question-category");
+    const questionKo = document.getElementById("question-ko");
+    const questionZh = document.getElementById("question-zh");
+    const optionsList = document.getElementById("options-list");
+
+    const feedbackBox = document.getElementById("feedback-box");
+    const feedbackTitle = document.getElementById("feedback-title");
+    const feedbackExplainKo = document.getElementById("feedback-explain-ko");
+    const feedbackExplainZh = document.getElementById("feedback-explain-zh");
+    const vocabRow = document.getElementById("vocab-row");
+    const nextWrap = document.getElementById("next-wrap");
+    const nextBtn = document.getElementById("next-btn");
+
+    const resultScore = document.getElementById("result-score");
+    const resultCommentKo = document.getElementById("result-comment-ko");
+    const resultCommentZh = document.getElementById("result-comment-zh");
+    const reviewList = document.getElementById("review-list");
+
+    function showScreen(target) {
+      startScreen.classList.add("hidden");
+      quizScreen.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      target.classList.remove("hidden");
+    }
+
+    function resetGameState() {
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+      history = [];
+    }
+
+    function startQuiz() {
+      resetGameState();
+      showScreen(quizScreen);
+      renderQuestion();
+    }
+
+    function updateHeaderStatus() {
+      const displayNum = currentIndex + 1;
+      progressText.textContent = `문제 ${displayNum} / ${TOTAL_QUESTIONS} · 第 ${displayNum} / ${TOTAL_QUESTIONS} 题`;
+      scoreText.textContent = `현재 점수: ${score} / ${TOTAL_QUESTIONS} · 当前得分: ${score} / ${TOTAL_QUESTIONS}`;
+      const progressPercent = (displayNum / TOTAL_QUESTIONS) * 100;
+      progressFill.style.width = `${progressPercent}%`;
+      progressBarWrap.setAttribute("aria-valuenow", String(displayNum));
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const item = QUESTIONS[currentIndex];
+
+      updateHeaderStatus();
+      questionCategory.textContent = `${item.categoryKo} · ${item.categoryZh}`;
+      questionKo.textContent = item.questionKo;
+      questionZh.textContent = item.questionZh;
+
+      // Reset feedback & next button
+      feedbackBox.classList.add("hidden");
+      feedbackBox.classList.remove("correct", "wrong");
+      nextWrap.classList.add("hidden");
+      optionsList.innerHTML = "";
+
+      item.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn";
+        btn.dataset.index = String(idx);
+
+        const keyBadge = document.createElement("span");
+        keyBadge.className = "option-key";
+        keyBadge.textContent = OPTION_LETTERS[idx];
+
+        const content = document.createElement("span");
+        content.className = "option-content";
+
+        const koSpan = document.createElement("span");
+        koSpan.className = "option-ko";
+        koSpan.textContent = opt.ko;
+
+        const zhSpan = document.createElement("span");
+        zhSpan.className = "option-zh";
+        zhSpan.textContent = opt.zh;
+
+        content.appendChild(koSpan);
+        content.appendChild(zhSpan);
+        btn.appendChild(keyBadge);
+        btn.appendChild(content);
+
+        btn.addEventListener("click", () => handleSelectOption(idx));
+        optionsList.appendChild(btn);
+      });
+    }
+
+    function handleSelectOption(selectedIndex) {
+      if (answered) return;
+      answered = true;
+
+      const item = QUESTIONS[currentIndex];
+      const isCorrect = selectedIndex === item.answerIndex;
+      if (isCorrect) {
+        score += 1;
+      }
+
+      history.push({
+        questionKo: item.questionKo,
+        correctOption: item.options[item.answerIndex],
+        isCorrect
+      });
+
+      // Update score badge immediately
+      updateHeaderStatus();
+
+      // Highlight options and lock buttons
+      const optionButtons = optionsList.querySelectorAll(".option-btn");
+      optionButtons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === item.answerIndex) {
+          btn.classList.add("is-correct");
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.classList.add("is-wrong");
+        }
+      });
+
+      // Render bilingual feedback
+      feedbackBox.classList.remove("hidden", "correct", "wrong");
+      feedbackBox.classList.add(isCorrect ? "correct" : "wrong");
+
+      if (isCorrect) {
+        feedbackTitle.textContent = "정답입니다! · 回答正确！";
+      } else {
+        const correctOpt = item.options[item.answerIndex];
+        feedbackTitle.textContent = `오답입니다. 정답: ${correctOpt.ko} (${correctOpt.zh}) · 回答错误，正确答案：${correctOpt.ko} (${correctOpt.zh})`;
+      }
+
+      feedbackExplainKo.textContent = item.explainKo;
+      feedbackExplainZh.textContent = item.explainZh;
+
+      vocabRow.innerHTML = "";
+      item.vocab.forEach((pair) => {
+        const chip = document.createElement("span");
+        chip.className = "vocab-chip";
+        chip.textContent = pair;
+        vocabRow.appendChild(chip);
+      });
+
+      // Configure Next / Result button
+      const isLast = currentIndex === TOTAL_QUESTIONS - 1;
+      nextBtn.textContent = isLast
+        ? "최종 결과 보기 · 查看最终结果"
+        : "다음 문제 · 下一题";
+      nextWrap.classList.remove("hidden");
+    }
+
+    function getEncouragement(finalScore) {
+      if (finalScore === TOTAL_QUESTIONS) {
+        return {
+          ko: "완벽해요! 한국어 기초 상식을 모두 마스터하셨네요!",
+          zh: "太棒了！你已经全部掌握了这些韩语基础常识！"
+        };
+      }
+      if (finalScore >= 4) {
+        return {
+          ko: "아주 잘했어요! 한국어 실력이 쑥쑥 자라고 있어요.",
+          zh: "表现非常出色！你的韩语水平正在稳步提升。"
+        };
+      }
+      if (finalScore >= 2) {
+        return {
+          ko: "좋은 시작이에요! 해설과 단어를 한 번 더 복습해 보세요.",
+          zh: "不错的开始！再复习一下解析和词汇会更熟练哦。"
+        };
+      }
+      return {
+        ko: "괜찮아요, 시작이 반입니다! 다시 도전하며 차근차근 익혀 보세요.",
+        zh: "没关系，万事开头难！再挑战一次，慢慢积累吧。"
+      };
+    }
+
+    function showResults() {
+      showScreen(resultScreen);
+
+      const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+      resultScore.textContent = `${score} / ${TOTAL_QUESTIONS} (${percent}점 · ${percent}分)`;
+
+      const comment = getEncouragement(score);
+      resultCommentKo.textContent = comment.ko;
+      resultCommentZh.textContent = comment.zh;
+
+      reviewList.innerHTML = "";
+      history.forEach((entry, idx) => {
+        const row = document.createElement("div");
+        row.className = "review-item";
+
+        const left = document.createElement("div");
+        const qTitle = document.createElement("div");
+        qTitle.className = "review-q";
+        qTitle.textContent = `${idx + 1}. ${entry.questionKo}`;
+
+        const qAns = document.createElement("div");
+        qAns.className = "review-ans";
+        qAns.textContent = `정답 · 答案: ${entry.correctOption.ko} / ${entry.correctOption.zh}`;
+
+        left.appendChild(qTitle);
+        left.appendChild(qAns);
+
+        const badge = document.createElement("span");
+        badge.className = `review-badge ${entry.isCorrect ? "ok" : "no"}`;
+        badge.textContent = entry.isCorrect ? "정답 · 正确" : "오답 · 错误";
+
+        row.appendChild(left);
+        row.appendChild(badge);
+        reviewList.appendChild(row);
+      });
+    }
+
+    function handleNext() {
+      if (currentIndex < TOTAL_QUESTIONS - 1) {
+        currentIndex += 1;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    startBtn.addEventListener("click", startQuiz);
+    nextBtn.addEventListener("click", handleNext);
+    restartBtn.addEventListener("click", startQuiz);
+    homeBtn.addEventListener("click", () => {
+      resetGameState();
+      showScreen(startScreen);
+    });
+  </script>
+</body>
+</html>
